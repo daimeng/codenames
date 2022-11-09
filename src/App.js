@@ -2,22 +2,45 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  const wordlist = new Array(5).fill(null).map(row =>
+    new Array(5).fill(-1)
+  )
+
+  let blue = 1
+
+  // assign assassin
+  const i = Math.floor(Math.random() * 5)
+  const j = Math.floor(Math.random() * 5)
+  wordlist[i][j] = 2
+
+  let choose = 17
+  while (choose > 0) {
+    const i = Math.floor(Math.random() * 5)
+    const j = Math.floor(Math.random() * 5)
+    if (wordlist[i][j] !== -1) {
+      continue
+    }
+
+    wordlist[i][j] = blue
+    blue ^= 1
+    choose -= 1
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <table>
+        <tbody>
+          {wordlist.map(row =>
+            <tr>
+              {row.map(cell =>
+                <td className={`cell cell-${cell}`}>
+                  {''}
+                </td>
+              )}
+            </tr>
+          )}
+        </tbody>
+      </table>
     </div>
   );
 }
